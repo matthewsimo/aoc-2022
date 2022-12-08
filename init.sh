@@ -27,7 +27,7 @@ fn p2(input: &str) -> String {
 mod d${1} {
     use super::*;
 
-    const INPUT: &str = \"test input\";
+    const INPUT: &str = \"\";
 
     #[test]
     fn t1() {

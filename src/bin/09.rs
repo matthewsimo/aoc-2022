@@ -15,6 +15,21 @@ fn do_move(rope: &(i16, i16), dir: &str) -> (i16, i16) {
     }
 }
 
+fn get_tail_move(h: (i16, i16), t: (i16, i16)) -> (i16, i16) {
+    let d_x = if h.0 == t.0 {
+        0
+    } else {
+        (h.0 - t.0) / (h.0 - t.0).abs()
+    };
+    let d_y = if h.1 == t.1 {
+        0
+    } else {
+        (h.1 - t.1) / (h.1 - t.1).abs()
+    };
+
+    return (d_x, d_y);
+}
+
 fn is_touching(head: (i16, i16), tail: (i16, i16)) -> bool {
     (head.0 - tail.0).abs() <= 1 && (head.1 - tail.1).abs() <= 1
 }
@@ -43,23 +58,11 @@ fn p1(input: &str) -> String {
         for _ in 0..amount {
             head = do_move(&head, dir);
             if !is_touching(head, tail) {
-                let d_x = if head.0 == tail.0 {
-                    0
-                } else {
-                    (head.0 - tail.0) / (head.0 - tail.0).abs()
-                };
-                let d_y = if head.1 == tail.1 {
-                    0
-                } else {
-                    (head.1 - tail.1) / (head.1 - tail.1).abs()
-                };
-
+                let (d_x, d_y) = get_tail_move(head, tail);
                 tail = (tail.0 + d_x, tail.1 + d_y);
             }
 
-            if !visited.contains(&tail) {
-                visited.insert(tail);
-            }
+            visited.insert(tail);
         }
     }
 
@@ -83,24 +86,12 @@ fn p2(input: &str) -> String {
                 let h = knots[j - 1];
                 let t = knots[j];
                 if !is_touching(h, t) {
-                    let d_x = if h.0 == t.0 {
-                        0
-                    } else {
-                        (h.0 - t.0) / (h.0 - t.0).abs()
-                    };
-                    let d_y = if h.1 == t.1 {
-                        0
-                    } else {
-                        (h.1 - t.1) / (h.1 - t.1).abs()
-                    };
-
+                    let (d_x, d_y) = get_tail_move(h, t);
                     knots[j] = (t.0 + d_x, t.1 + d_y);
                 }
             }
 
-            if !visited.contains(&knots[knots.len() - 1]) {
-                visited.insert(knots[knots.len() - 1]);
-            }
+            visited.insert(knots[knots.len() - 1]);
         }
     }
 

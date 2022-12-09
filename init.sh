@@ -3,9 +3,10 @@
 PATH=src/bin/$1.rs
 
 
-echo "creating input file for day ${1}";
-echo "" > input/$1.txt
+# Download the input into proper place
+/bin/bash ./get_input.sh $1;
 
+# Create starter solution file
 echo "creating source file for day ${1}";
 echo "use std::{fs, time::Instant};
 

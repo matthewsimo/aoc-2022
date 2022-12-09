@@ -16,15 +16,13 @@ fn do_move(rope: &(i16, i16), dir: &str) -> (i16, i16) {
 }
 
 fn get_tail_move(h: (i16, i16), t: (i16, i16)) -> (i16, i16) {
-    let d_x = if h.0 == t.0 {
-        0
-    } else {
-        (h.0 - t.0) / (h.0 - t.0).abs()
+    let d_x = match h.0 {
+        x if x == t.0 => 0,
+        _ => (h.0 - t.0) / (h.0 - t.0).abs(),
     };
-    let d_y = if h.1 == t.1 {
-        0
-    } else {
-        (h.1 - t.1) / (h.1 - t.1).abs()
+    let d_y = match h.1 {
+        x if x == t.1 => 0,
+        _ => (h.1 - t.1) / (h.1 - t.1).abs(),
     };
 
     return (d_x, d_y);

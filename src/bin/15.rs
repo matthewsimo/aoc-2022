@@ -32,7 +32,7 @@ fn main() {
     println!("p1: {}", p1(&input, 2_000_000));
     println!("Ran p1 in {:.4?}", t.elapsed());
     let t = Instant::now();
-    println!("p2: {}", p2(&input));
+    println!("p2: {}", p2(&input, 4_000_000));
     println!("Ran p2 in {:.4?}", t.elapsed());
 }
 
@@ -140,8 +140,10 @@ fn p1(input: &str, y: i32) -> String {
     total.to_string()
 }
 
-fn p2(input: &str) -> String {
-    "bar".to_string()
+fn p2(input: &str, max: i32) -> String {
+    let mut beacon_pos: (i32, i32) = (0, 0);
+    let tuning_freq = max * beacon_pos.0 + beacon_pos.1;
+    tuning_freq.to_string()
 }
 
 #[cfg(test)]
@@ -171,7 +173,7 @@ Sensor at x=20, y=1: closest beacon is at x=15, y=3";
 
     #[test]
     fn t2() {
-        let result = p2(INPUT);
-        assert_eq!(result, "bar");
+        let result = p2(INPUT, 20);
+        assert_eq!(result, "56000011");
     }
 }
